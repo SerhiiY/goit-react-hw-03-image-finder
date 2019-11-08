@@ -49,12 +49,11 @@ class App extends Component {
 
   onSubmit = (evt) => {
     evt.preventDefault();
-    this.page = 1;
     const query = evt.target.querySelector('input').value;
-    if (this.query !== query) {
-      this.setState({ images: [] });
-    }
+    if (this.query === query) return;
+    this.page = 1;
     this.query = query;
+    this.setState({ images: [] });
     this.fetchPhotoData();
   }
 
