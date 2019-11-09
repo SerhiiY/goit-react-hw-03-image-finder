@@ -12,25 +12,25 @@ const PhotoCard = ({ props, toFullView }) => {
 
       <div className={css.stats}>
         <p className={css.statsItem}>
-          <i className={css.statsItemIcon}>thumb_up</i>
+          <i className="material-icons">thumb_up</i>
           {likes}
         </p>
         <p className={css.statsItem}>
-          <i className={css.statsItemIcon}>visibility</i>
+          <i className="material-icons">visibility</i>
           {views}
         </p>
         <p className={css.statsItem}>
-          <i className={css.statsItemIcon}>comment</i>
+          <i className="material-icons">comment</i>
           {comments}
         </p>
         <p className={css.statsItem}>
-          <i className={css.statsItemIcon}>cloud_download</i>
+          <i className="material-icons">cloud_download</i>
           {downloads}
         </p>
       </div> 
 
       <button type="button" className={css.fullscreenButton} onClick={() => toFullView(largeImageURL)}>
-        <i className={css.statsItemIcon}>zoom_out_map</i>
+        <i className="material-icons">zoom_out_map</i>
       </button>
     </li>
     )
