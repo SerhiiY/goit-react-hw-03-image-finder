@@ -15,10 +15,12 @@ class App extends Component {
     imgSrc: "",
     images: [],
     spinner: true,
+    error: '',
   }
   query = '';
   per_page = 12;
   page = 1;
+  api_key = '14090322-33bc1de3434a551c0882d475d';
 
   componentDidMount() {
     this.fetchPhotoData(this.query);
@@ -49,12 +51,13 @@ class App extends Component {
   }
 
   fetchPhotoData = () => {
-    if (!this.state.spinner)this.setState({ spinner: true });
+    if (!this.state.spinner) this.setState({ spinner: true });
     const queryEncoded = encodeURI(this.query);
     axios
-      .get(`https://pixabay.com/api/?key=14090322-33bc1de3434a551c0882d475d&q=${queryEncoded}&image_type=all&per_page=${this.per_page}&page=${this.page}`)
-      .then(res => this.setState(({ images }) => ({ images: images.concat(res.data.hits), spinner: false })))
-      .catch(err => console.log(err));
+      .get(`https://pixabay.com/api/?key=${this.api_key}&q=${queryEncoded}&image_type=all&per_page=${this.per_page}&page=${this.page}`)
+      .then(res => this.setState(({ images }) => ({ images: [...images, ...res.data.hits] })))
+      .catch(err => this.setState({ error: err }))
+      .finally(() => this.setState({ spinner: false }));
   }
 
   onSubmit = (evt) => {
@@ -76,12 +79,13 @@ class App extends Component {
   }
 
   render() {
-    const { imgSrc, isFullView, images, spinner } = this.state;
+    const { imgSrc, isFullView, images, spinner, error } = this.state;
 
     return (
       <Fragment>
         <SearchForm onSubmit={this.onSubmit} />
-        {spinner && <Loader timeout={5000} className={css.spinner}/>}
+        {spinner && <Loader timeout={5000} className={css.spinner} />}
+        {error && <h2>{this.state.error}</h2>}
         {images[0] && <Gallery imageList={images} toFullView={this.toFullView} loadMore={this.loadMore}/>}
         {isFullView && <Modal imgSrc={imgSrc} closeModal={this.closeModal}/>}
       </Fragment>
