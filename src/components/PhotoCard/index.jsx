@@ -8,7 +8,7 @@ const PhotoCard = ({ props, toFullView }) => {
 
   return (
     <li className={css.photoCard} key={id}>
-      <img src={webformatURL} alt="WebFormatImg"/>
+      <img src={webformatURL} alt="WebFormatImg" className={css.photoCardImg}/>
 
       <div className={css.stats}>
         <p className={css.statsItem}>

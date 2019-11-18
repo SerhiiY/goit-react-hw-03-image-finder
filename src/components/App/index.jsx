@@ -24,6 +24,16 @@ class App extends Component {
     this.fetchPhotoData(this.query);
     window.addEventListener("keydown", this.handlePressKey);
   }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { images: { length } } = this.state;
+    if (length !== prevState.images.length && length !== this.per_page) {
+        window.scrollBy({
+          top: 640,
+          behavior: 'smooth'
+        });
+      }
+  }
   
   componentWillUnmount() {
     window.removeEventListener("keydown", this.handlePressKey);
